@@ -4,6 +4,29 @@ body{
     align-items: center;
     background: linear-gradient(90deg, #152331 0%, #000 100%);
 }
+.alert {
+    padding: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-family: 'Blinker', sans-serif;
+}
+
+/* The close button */
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.closebtn:hover {
+    color: black;
+}
 div.login-form{
     margin-top: 15em;
     margin-bottom: 15em;
@@ -91,7 +114,4 @@ div.signup{
 a.signup{
     text-decoration: none;
     color: #4F559A;
-}
-div.message_login{
-    display: none;
 }

@@ -31,14 +31,20 @@
                 <h2 class="image-capture">Web-Cam:<br>(For Touchless Login)</h2>
             </div>
             <div class="camera">
-                <img src="{{ url_for('video') }}"/>
+                <img src="{{ url_for('video_login') }}"/>
             </div>
             <div class="login-p">
                 <label for="login">
                     <div class="login">
-                        <p class="login">Login</p>
+                        <a class="login" accesskey="l" href="/">Login</a>
                     </div>
                 </label>
+            </div>
+            <div class="message_login">
+                <a href="/login_message" accesskey="w"></a>
+            </div>
+            <div class="signup">
+                <p>Donot have a acount? <a class="signup" href="/signup">Signup</a></p>
             </div>
         </main>
     </div>

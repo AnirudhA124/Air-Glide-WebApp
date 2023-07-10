@@ -1,6 +1,7 @@
 body{
     display: flex;
     justify-content: center;
+    background: linear-gradient(90deg, #152331 0%, #000 100%);
 }
 div.signup-form{
     height: 100%;

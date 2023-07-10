@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/style_signup.css">
+    <link rel="stylesheet" href="/static/style_login_message.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Blinker&display=swap"
         rel="stylesheet">
-    <title>Air Glide-SignUp</title>
+    <title>Air Glide-Login</title>
 </head>
 <body>
-    <div class="signup-form">
+    <div class="login-form">
         <header>
-            <div class="signup">
-                <h1 class="signup">Sign Up</h1>
+            <div class="alert">
+                Face not recognized. Please enter your login details!
+            </div>
+            <div class="login-title">
+                <h1 class="login-title">Login</h1>
             </div>
         </header>
         <main>
             <div class="input">
                 <form class="input">
-                    <input type="text" placeholder="First Name"
-                        class="first-name">
-                    <input type="text" placeholder="Last Name" class="Last-name">
                     <input type="email" placeholder="Email Address"
                         class="Email-address">
                     <input type="password" placeholder="Password"
@@ -31,17 +31,20 @@
                 </form>
             </div>
             <div class="image-capture">
-                <h2 class="image-capture">Image Capture:<br>(For Touchless Login)</h2>
+                <h2 class="image-capture">Web-Cam:<br>(For Touchless Login)</h2>
             </div>
             <div class="camera">
-                <img src="{{ url_for('video_signup') }}"/>
+                <img src="{{ url_for('video_login') }}"/>
             </div>
-            <div class="capture-p">
-                <label for="capture">
-                    <div class="capture" id="capture">
-                        <a class="capture" id="capture" href="/capture">Capture</a>
+            <div class="login-p">
+                <label for="login">
+                    <div class="login">
+                        <a class="login" accesskey="l" href="/">Login</a>
                     </div>
                 </label>
+            </div>
+            <div class="signup">
+                <p>Donot have a acount? <a class="signup" href="/signup">Signup</a></p>
             </div>
         </main>
     </div>
