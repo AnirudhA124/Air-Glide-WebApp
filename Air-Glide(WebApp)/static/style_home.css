@@ -1,12 +1,21 @@
 body{
     margin: 0%;
 }
-
+.home{
+    width: 100%;
+    height: 100%;
+}
 .first-container{
     background-color: black;
-    padding-bottom: 2%;
+    
 }
-
+div.home_main{
+    display: flex;
+}
+.pic{
+    align-self: flex-end;
+    width: 50%;
+}
 .topnav{
     background-color: #333;
     overflow: hidden;
@@ -54,9 +63,6 @@ body{
 }
 
 .pic{
-    position: absolute;
-    margin-top: 5%;
-    max-width: 100%;
     height: 80%;
     
 }
@@ -86,22 +92,22 @@ p{
 
 .third-container{
     background-color: black;
+    width: 100%;
+    height:10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
 }
 .third{
     color: #f2f2f2;
-    margin: auto;
-    padding: 1%;
     width: 20%;
-   text-align: center;
+    text-align: center;
     
 }
-
-
 .icon{
-    margin: auto;
-    display: flex;
-     justify-content: center;
-     padding-bottom: 1%;
+    padding-bottom: 1%;
     
 }
 

@@ -73,10 +73,9 @@ def generate_frame_login():
                 cv2.rectangle(imgS, (x1, y2 - 35), (x2, y2), (0, 255, 0), cv2.FILLED)
                 cv2.putText(imgS, name, (x1 + 6, y2 - 6), cv2.FONT_HERSHEY_COMPLEX, 0.4, (255, 255, 255), 1)
                 print(name)
-                if name == "ANIRUD":
-                    print("LoggedIn")
-                    time.sleep(3)
-                    pyautogui.hotkey('alt','l')
+                time.sleep(3)
+                pyautogui.hotkey('alt','l')
+                return 
                     
 
             else:
@@ -86,6 +85,7 @@ def generate_frame_login():
                 cv2.rectangle(imgS, (x1, y2-35), (x2, y2), (255, 0, 0), cv2.FILLED)
                 print("NAHI HAI")
                 pyautogui.hotkey('alt','w')
+                return 
                 
 
 
@@ -115,7 +115,7 @@ def login_message():
 
 @app.route('/main')
 def main():
-    pass
+    return render_template("main.html")
 
 @app.route('/video_signup')
 def video_signup():
