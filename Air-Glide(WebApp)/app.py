@@ -1,4 +1,4 @@
-from flask import Flask,render_template,Response,redirect,url_for,flash
+from flask import Flask,render_template,Response,redirect,url_for,request,session,flash
 import cv2
 import os
 import numpy as np
@@ -7,11 +7,21 @@ import time
 import pyautogui
 import HANDDETECTION as hdt
 from flask_mysqldb import MySQL
+from passlib.hash import sha256_crypt
+import re
 
 app = Flask(__name__)
+app.config['MYSQL_HOST'] = "localhost"
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ""
+app.config["MYSQL_DB"]= 'air_glide_data'
+
+mysql= MySQL(app)
+
+
 cap=cv2.VideoCapture(0)
 app.secret_key='dont tell'
-
+ 
 def camera():
     success,frame=cap.read()
     return frame
@@ -75,7 +85,6 @@ def generate_frame_login():
                 cv2.rectangle(imgS, (x1, y2 - 35), (x2, y2), (0, 255, 0), cv2.FILLED)
                 cv2.putText(imgS, name, (x1 + 6, y2 - 6), cv2.FONT_HERSHEY_COMPLEX, 0.4, (255, 255, 255), 1)
                 print(name)
-                time.sleep(3)
                 pyautogui.hotkey('alt','l')
                 return 
                     
@@ -187,9 +196,41 @@ def home():
 def signup():
     return render_template("signup.html")
 
+@app.route('/signup_get', methods=['POST'])
+def signup_get():
+    cur= mysql.connection.cursor()
+    if request.method=="POST":
+        name=request.form["full_name"]
+        email=request.form["email"]
+        password=request.form["password"]
+        cur.execute(""" INSERT INTO users(full_name,email,password) VALUES (%s, %s, %s)""", (name,email,password))
+        mysql.connection.commit()
+        global id
+        id=cur.execute( "SELECT id FROM users WHERE email LIKE %s", [email])
+        id=cur.fetchone()
+        id=id[0]
+    return redirect(url_for('capture'))
+
 @app.route('/login')
 def login():
     return render_template("login.html")
+
+@app.route('/login_get', methods=["POST"])
+def login_get():
+    if request.method == "POST":
+        email=request.form["email"]
+        password=request.form["password"]
+        if email=="agrawalanirudh18@gmail.com" and password=="1234":
+            session["email"]=email
+            return render_template("main.html",email=email)
+        else:
+            msg="Invalid email or password!"
+            return render_template("login_message.html", msg=msg)
+
+@app.route('/logout')
+def logout():
+    session.pop("email",None)
+    return render_template("home.html")
 
 @app.route('/login_message')
 def login_message():
@@ -216,9 +257,9 @@ def capture():
     while True:
         frame=camera()
         path='E:\Air-Glide(WebApp) not gitHub\Images'
-        cv2.imwrite(os.path.join(path,"Anirudh.png"), frame)
+        cv2.imwrite(os.path.join(path,f"{id}.png"), frame)
         break
-    return redirect(url_for("login"))
+    return redirect(url_for('login'))
     
     
     

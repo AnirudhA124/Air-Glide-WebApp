@@ -15,6 +15,9 @@
     <div class="login-form">
         <header>
             <div class="alert">
+                {{ msg }}
+            </div>
+            <div class="alert">
                 Face not recognized. Please enter your login details!
             </div>
             <div class="login-title">
@@ -23,15 +26,15 @@
         </header>
         <main>
             <div class="input">
-                <form class="input" id="login-form">
+                <form action="/login_get" class="input" id="login-form" method="post">
                     <input type="email" placeholder="Email Address"
-                        class="Email-address">
+                        class="Email-address" name="email">
                     <input type="password" placeholder="Password"
-                        class="password">
+                        class="password" name="password">
                     <div class="login-p">
                         <label for="login">
                             <div class="login">
-                                <a class="login" accesskey="l" href="/main" onclick="myFunction()">Login</a>
+                                <a class="login" accesskey="l" onclick="myFunction()">Login</a>
                             </div>
                         </label>
                     </div>
