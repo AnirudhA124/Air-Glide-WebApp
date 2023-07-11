@@ -20,11 +20,18 @@
         </header>
         <main>
             <div class="input">
-                <form class="input">
+                <form class="input" id="login-form">
                     <input type="email" placeholder="Email Address"
                         class="Email-address">
                     <input type="password" placeholder="Password"
                         class="password">
+                    <div class="login-p">
+                        <label for="login">
+                            <div class="login">
+                                <a class="login" accesskey="l" href="/main" onclick="myFunction()">Login</a>
+                            </div>
+                        </label>
+                    </div>
                 </form>
             </div>
             <div class="image-capture">
@@ -33,20 +40,21 @@
             <div class="camera">
                 <img src="{{ url_for('video_login') }}"/>
             </div>
-            <div class="login-p">
-                <label for="login">
-                    <div class="login">
-                        <a class="login" accesskey="l" href="/main">Login</a>
-                    </div>
-                </label>
-            </div>
             <div class="message_login">
                 <a href="/login_message" accesskey="w"></a>
             </div>
             <div class="signup">
                 <p>Donot have a acount? <a class="signup" href="/signup">Signup</a></p>
             </div>
+            <div class="camera_virtual_mouse">
+                <img src="{{ url_for('video_virtual_mouse') }}"/>
+            </div>
         </main>
     </div>
+    <script>
+        function myFunction() {
+            document.getElementById("login-form").submit();
+        }
+    </script>
 </body>
 </html>

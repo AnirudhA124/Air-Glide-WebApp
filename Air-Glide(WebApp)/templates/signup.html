@@ -20,7 +20,7 @@
         </header>
         <main>
             <div class="input">
-                <form class="input">
+                <form class="input" id="signup-form" name="signup-form">
                     <input type="text" placeholder="First Name"
                         class="first-name">
                     <input type="text" placeholder="Last Name" class="Last-name">
@@ -28,22 +28,30 @@
                         class="Email-address">
                     <input type="password" placeholder="Password"
                         class="password">
+                    <div class="image-capture">
+                        <h2 class="image-capture">Image Capture:<br>(For Touchless Login)</h2>
+                    </div>
+                    <div class="camera">
+                        <img src="{{ url_for('video_signup') }}"/>
+                    </div>
+                    <div class="capture-p">
+                        <label for="capture">
+                            <div class="capture" id="capture">
+                                <a class="capture" id="capture" onclick="myFunction()" href="/capture">Capture & Submit</a>
+                            </div>
+                        </label>
+                    </div>
                 </form>
             </div>
-            <div class="image-capture">
-                <h2 class="image-capture">Image Capture:<br>(For Touchless Login)</h2>
-            </div>
-            <div class="camera">
-                <img src="{{ url_for('video_signup') }}"/>
-            </div>
-            <div class="capture-p">
-                <label for="capture">
-                    <div class="capture" id="capture">
-                        <a class="capture" id="capture" href="/capture">Capture</a>
-                    </div>
-                </label>
+            <div class="camera_virtual_mouse">
+                <img src="{{ url_for('video_virtual_mouse') }}"/>
             </div>
         </main>
     </div>
+    <script>
+        function myFunction() {
+            document.getElementById("signup-form").submit();
+        }
+    </script>
 </body>
 </html>
