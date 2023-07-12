@@ -1,0 +1,12 @@
+.camera{
+    display: flex;
+    width: 20%;
+    height: 27%;
+    position: fixed;
+    bottom: 0%;
+    right: 0%;
+}
+img{
+    width: 100%;
+    border-radius: 5px;
+}

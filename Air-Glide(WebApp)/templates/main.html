@@ -6,9 +6,13 @@
         <title>Air Glide-Main</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/static/style_main.css">
     </head>
     <body>
         <p>Login Successful {{ name }}</p>
         <a href="/logout">Logout</a>
+        <div class="camera">
+            <img src="{{ url_for('video_virtual_mouse') }}"/>
+        </div>
     </body>
 </html>
