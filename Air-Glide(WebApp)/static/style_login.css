@@ -4,6 +4,14 @@ body{
     align-items: center;
     background: linear-gradient(90deg, #152331 0%, #000 100%);
 }
+.info{
+    padding: 0.9em;
+    background-color: #00ff00; /* Red */
+    color: white;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-family: 'Blinker', sans-serif;
+}
 div.login-form{
     margin-top: 15em;
     margin-bottom: 15em;
