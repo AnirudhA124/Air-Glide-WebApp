@@ -119,7 +119,10 @@ def generate_frames_virtual_mouse():
     wscr , hscr = pyautogui.size()
     tym = 0
     pixels = 100
-    
+    smooth = 1.07
+    plocx,plocy = 0,0
+    clocx,clocy = 0,0
+    tipIds = [4, 8, 12, 16, 20]
     detector = hdt.HandDetector()
     while True:
         frame=camera()
@@ -137,6 +140,7 @@ def generate_frames_virtual_mouse():
             x4, y4 = lmlist[20][1:]
 
             fingers = detector.fingersup()
+            fing = detector.scroll_fingers()
 
 
             cv2.rectangle(frame,(pixels,pixels),(wweb - pixels, hweb - pixels),(255,255,0),2)
@@ -146,38 +150,50 @@ def generate_frames_virtual_mouse():
             if fingers == [0,1,0,0,0]:
                 xc = np.interp(x1,(pixels,wweb - pixels),(0,wscr))
                 yc = np.interp(y1, (pixels, hweb - pixels), (0, hscr))
-
-                pyautogui.moveTo(xc,yc)
+                
+                clocx = plocx + (xc - plocx)/smooth
+                clocy = plocy + (yc - plocy)/smooth
+                
+                pyautogui.moveTo(clocx,clocy)
                 cv2.circle(frame,(x1,y1),15,(140,140,0),cv2.FILLED)
+                
+                plocx = clocx
+                plocy = clocy
 
             #for clicking: middle and index fing
             if fingers == [0,1,1,0,0]:
 
                 lenght, frame  = detector.distance(8,12,frame)
-                if lenght <40:
+                lenght2,frame = detector.distance(5,9,frame)
+                ratio = lenght/lenght2
+                if ratio<1.2:
                     tym+=1
                     if tym>30:
                         cv2.circle(frame,(x1,y1),15,(0,255,0),cv2.FILLED)
                         pyautogui.click()
                         tym = 0
 
-            #thumb up for win r
-            if fingers == [1,0,0,0,0]:
-                tym+=1
-                if tym > 40:
+            #fist scrolling using thumbs up and down
+            if fing == [1] and fingers == [1,0,0,0,0]:
+                if (lmlist[tipIds[1]][2] > lmlist[tipIds[0]][2]) or (lmlist[tipIds[2]][2] > lmlist[tipIds[0]][2]) or (lmlist[tipIds[3]][2] > lmlist[tipIds[0]][2]) or (lmlist[tipIds[4]][2] > lmlist[tipIds[0]][2]):
                     cv2.circle(frame, (x0, y0), 15, (0, 255, 0), cv2.FILLED)
-                    pyautogui.hotkey("win","r")
-                    tym = 0
-
-
-            #for closing opencv
-            if fingers == [0,0,0,0,1]:
+                    pyautogui.scroll(75)
+                elif (lmlist[tipIds[1]][2] < lmlist[tipIds[0]][2]) or (lmlist[tipIds[2]][2] < lmlist[tipIds[0]][2]) or (lmlist[tipIds[3]][2] < lmlist[tipIds[0]][2]) or (lmlist[tipIds[4]][2] < lmlist[tipIds[0]][2]):
+                    cv2.circle(frame, (x0, y0), 15, (0, 255, 0), cv2.FILLED)
+                    pyautogui.scroll(-75)
+            
+            #pause/play
+            if fingers == [1,1,1,1,1]:
                 tym+=1
-                if tym > 40:
+                if tym > 30:
+                    cv2.circle(frame, (x0, y0), 15, (0, 255, 0), cv2.FILLED)
+                    cv2.circle(frame, (x1, y1), 15, (0, 255, 0), cv2.FILLED)
+                    cv2.circle(frame, (x2, y2), 15, (0, 255, 0), cv2.FILLED)
+                    cv2.circle(frame, (x3, y3), 15, (0, 255, 0), cv2.FILLED)
                     cv2.circle(frame, (x4, y4), 15, (0, 255, 0), cv2.FILLED)
-                    pyautogui.hotkey("q")
+                    pyautogui.hotkey("space")
                     tym = 0
-
+                    
         #frame rate
         cTime = time.time()
         fps = 1 / (cTime - pTime)
