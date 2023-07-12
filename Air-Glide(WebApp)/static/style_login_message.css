@@ -5,14 +5,13 @@ body{
     background: linear-gradient(90deg, #152331 0%, #000 100%);
 }
 .alert {
-    padding: 20px;
+    padding: 0.9em;
     background-color: #f44336; /* Red */
     color: white;
     margin-bottom: 15px;
     border-radius: 5px;
     font-family: 'Blinker', sans-serif;
 }
-
 /* The close button */
 .closebtn {
     margin-left: 15px;
@@ -26,6 +25,9 @@ body{
 
 .closebtn:hover {
     color: black;
+}
+span.closebtn{
+    cursor: pointer;
 }
 div.login-form{
     margin-top: 15em;

@@ -12,6 +12,31 @@ div.signup-form{
     background-color: #FFF;
     margin-top: 1em;
 }
+div.alert{
+    padding: 0.8em;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-family: 'Blinker', sans-serif;
+}
+/* The close button */
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.closebtn:hover {
+    color: black;
+}
+span.closebtn{
+    cursor: pointer;
+}
 a{
     text-decoration: none;
     color: #FFF;

@@ -18,6 +18,7 @@ app.config["MYSQL_DB"]= 'air_glide_data'
 
 mysql= MySQL(app)
 
+# global id_db
 
 cap=cv2.VideoCapture(0)
 app.secret_key='dont tell'
@@ -35,7 +36,6 @@ def generate_frames():
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
         
 def generate_frame_login():
-    global face_reco
     #Taking the images from the given path and passing in myList
     path='Images'
     images=[]
@@ -85,6 +85,8 @@ def generate_frame_login():
                 cv2.rectangle(imgS, (x1, y2 - 35), (x2, y2), (0, 255, 0), cv2.FILLED)
                 cv2.putText(imgS, name, (x1 + 6, y2 - 6), cv2.FONT_HERSHEY_COMPLEX, 0.4, (255, 255, 255), 1)
                 print(name)
+                global id_db
+                id_db=str(name)
                 pyautogui.hotkey('alt','l')
                 return 
                     
@@ -203,33 +205,60 @@ def signup_get():
         name=request.form["full_name"]
         email=request.form["email"]
         password=request.form["password"]
-        cur.execute(""" INSERT INTO users(full_name,email,password) VALUES (%s, %s, %s)""", (name,email,password))
-        mysql.connection.commit()
-        global id
-        id=cur.execute( "SELECT id FROM users WHERE email LIKE %s", [email])
-        id=cur.fetchone()
-        id=id[0]
-    return redirect(url_for('capture'))
+        confirm=request.form["confirm"]
+        secure_password=sha256_crypt.encrypt(str(password))
+        user=cur.execute( "SELECT email FROM users WHERE email LIKE %s", [email])
+        user=cur.fetchone()
+        if user==None:
+            if password==confirm:
+                cur.execute(""" INSERT INTO users(full_name,email,password) VALUES (%s, %s, %s)""", (name,email,secure_password))
+                mysql.connection.commit()
+                global id
+                id=cur.execute( "SELECT id FROM users WHERE email LIKE %s", [email])
+                id=cur.fetchone()
+                id=id[0]
+                return redirect(url_for('capture'))
+            else:
+                flash(" Password doesnot match confirm password!")
+                return render_template("signup.html")
+        else:
+            flash("Email already exists, please login or contact admin!")
+            return render_template("signup.html")
 
 @app.route('/login')
 def login():
     return render_template("login.html")
 
-@app.route('/login_get', methods=["POST"])
+@app.route('/login_get', methods=["POST","GET"])
 def login_get():
+    cur= mysql.connection.cursor()
     if request.method == "POST":
         email=request.form["email"]
         password=request.form["password"]
-        if email=="agrawalanirudh18@gmail.com" and password=="1234":
-            session["email"]=email
-            return render_template("main.html",email=email)
+        
+        email=cur.execute( "SELECT email FROM users WHERE email LIKE %s", [email])
+        email=cur.fetchone()
+        passworddata=cur.execute( "SELECT password FROM users WHERE email LIKE %s", [email])
+        passworddata=cur.fetchone()
+        
+        if email is None:
+            flash("Email does not exist, please signup!")
+            return render_template("login_message.html")
         else:
-            msg="Invalid email or password!"
-            return render_template("login_message.html", msg=msg)
+            for passwor_data in passworddata:
+                if sha256_crypt.verify(password,passwor_data):
+                    session["log"]=True
+                    name=cur.execute( "SELECT full_name FROM users WHERE email LIKE %s", [email])
+                    name=cur.fetchone()
+                    name=name[0]
+                    return render_template("main.html",name=name)
+                else:
+                    flash("Incorrect password!")
+                    return render_template("login_message.html")
 
 @app.route('/logout')
 def logout():
-    session.pop("email",None)
+    session.clear()
     return render_template("home.html")
 
 @app.route('/login_message')
@@ -238,7 +267,11 @@ def login_message():
 
 @app.route('/main')
 def main():
-    return render_template("main.html")
+    cur= mysql.connection.cursor()
+    cur.execute("SELECT full_name FROM users WHERE id LIKE %s", [id_db])
+    full_name=cur.fetchone()
+    full_name=full_name[0]
+    return render_template("main.html",name=full_name)
 
 @app.route('/video_signup')
 def video_signup():
