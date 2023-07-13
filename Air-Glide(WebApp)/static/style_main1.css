@@ -33,25 +33,17 @@
       font-weight: bold;
     }
 
-    .profile a {
+    p.welcome_gestures{
         display: block;
-        color:#eee;
+        color: #FFF;
+        font-family: 'Chakra Petch', sans-serif;
+        font-size: 1.5625rem;
+        font-style: normal;
+        font-weight: 400;
         padding: 10%;
-        text-align: center;
-        text-decoration: none;
         width: 100%;
         box-sizing: border-box;
       }
-
-    .sidebar a:hover{
-        
-        color: #818181;
-        
-    }
-
-    
-
-  
     .navbar {
       background-color:#262626;
       border-radius: 5px;
@@ -107,7 +99,7 @@
 
     .content {
       margin-top: 60px;
-      margin-left: 19em;
+      margin-left: 20%;
       padding: 20px;
     }
 
@@ -136,6 +128,23 @@
       box-shadow: 5px 4px 4px 0px #000;
       padding: 20px;
       border-radius: 5px;
+      width: 80%;
+    }
+    .gestures_list{
+      background: linear-gradient(90deg, #ECE9E6 0%, #FFF 100%);
+      box-shadow: 5px 4px 4px 0px #000;
+      padding: 20px;
+      border-radius: 5px;
+      margin: 1em;
+      width: 75%;
+      color: black;
+      font-family: 'Chakra Petch', sans-serif;
+
+    }
+    ol{
+      font-size: 0.9375rem;
+      padding-left: 1.5em;
+      padding-top: 1em;
     }
     div.line1_e{
       margin-top: 2em;
