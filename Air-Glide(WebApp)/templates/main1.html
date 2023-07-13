@@ -2,10 +2,10 @@
 <html>
 <head>
   <title>My HTML Page</title>
-  <link rel="stylesheet" href="style_icon.css">
+  <link rel="stylesheet" href="/static/style_main1.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Luckiest+Guy&family=Merriweather:wght@300&family=Montserrat&family=Poller+One&family=Sacramento&family=Ysabeau+Infant&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="sidebar">
@@ -23,69 +23,83 @@
 
 
   <div class="content">
-    <div class="welcome">Welcome to AIR GLIDE! Step into the future of app control with Air Glide.</div>
+    <div class="welcome">Welcome, {{ name }}! Begin your exciting control journey. Explore enchanting gestures at your fingertips!</div>
 
     <div class="grid">
       <div class="column">
         <h2>Entertainment</h2>
-        <a href="https://www.youtube.com/" class="shortcut">
-          <div class="icon-container"></div>
-          <span>YouTube</span>
-        </a>
-        <a href="https://www.netflix.com/" class="shortcut">
-          <div class="icon-container"></div>
-          <span>Netflix</span>
-        </a>
-        <a href="https://www.spotify.com/" class="shortcut">
-          <div class="icon-container"></div>
-          <span>Spotify</span>
-        </a>
-        <a href="https://www.primevideo.com/" class="shortcut">
-          <div class="icon-container"></div>
-          <span>Amazon Prime</span>
-        </a>
-        <a href="https://www.hotstar.com/in" class="shortcut">
-          <div class="icon-container"></div>
-          <span>Hotstar</span>
-        </a>
+        <div class="line1_e">
+          <a href="https://www.youtube.com/" class="shortcut">
+            <div class="icon-container"></div>
+            <span>YouTube</span>
+          </a>
+          <a href="https://www.netflix.com/" class="shortcut">
+            <div class="icon-container"></div>
+            <span>Netflix</span>
+          </a>
+        </div>
+        <div class="line2_e">
+          <a href="https://www.spotify.com/" class="shortcut">
+            <div class="icon-container"></div>
+            <span>Spotify</span>
+          </a>
+          <a href="https://www.primevideo.com/" class="shortcut">
+            <div class="icon-container"></div>
+            <span>Amazon<br>Prime</span>
+          </a>
+        </div>
+        <div class="line3_e">
+          <a href="https://www.hotstar.com/in" class="shortcut">
+            <div class="icon-container"></div>
+            <span>Hotstar</span>
+          </a>
+        </div>
        
       </div>
 
       <div class="column">
         <h2>Social Media</h2>
-        <a href="https://www.instagram.com/" class="shortcut">
-          <div class="icon-container"></div>
-          <span>Instagram</span>
-        </a>
-        <a href="https://www.facebook.com/" class="shortcut">
-          <div class="icon-container"></div>
-          <span>Facebook</span>
-        </a>
-        <a href="https://twitter.com/" class="shortcut">
-          <div class="icon-container"></div>
-          <span>Twitter</span>
-        </a>
-        <a href="https://web.whatsapp.com/" class="shortcut">
-          <div class="icon-container"></div>
-          <span>WhatsApp</span>
-        </a>
+        <div class="line1_sm">
+          <a href="https://www.instagram.com/" class="shortcut">
+            <div class="icon-container"></div>
+            <span>Instagram</span>
+          </a>
+          <a href="https://www.facebook.com/" class="shortcut">
+            <div class="icon-container"></div>
+            <span>Facebook</span>
+          </a>
+        </div>
+        <div class="line2_sm">
+          <a href="https://twitter.com/" class="shortcut">
+            <div class="icon-container"></div>
+            <span>Twitter</span>
+          </a>
+          <a href="https://web.whatsapp.com/" class="shortcut">
+            <div class="icon-container"></div>
+            <span>WhatsApp</span>
+          </a>
+        </div>
         
       </div>
 
       <div class="column">
         <h2>Work Tools</h2>
-        <a href="https://www.canva.com/" class="shortcut">
-          <div class="icon-container"></div>
-          <span>Canva</span>
-        </a>
-        <a href="https://www.figma.com/" class="shortcut">
-          <div class="icon-container"></div>
-          <span>Figma</span>
-        </a>
-        <a href="https://www.tinkercad.com/" class="shortcut">
-          <div class="icon-container"></div>
-          <span>Tinkercad</span>
-        </a>
+        <div class="line1_wt">
+          <a href="https://www.canva.com/" class="shortcut">
+            <div class="icon-container"></div>
+            <span>Canva</span>
+          </a>
+          <a href="https://www.figma.com/" class="shortcut">
+            <div class="icon-container"></div>
+            <span>Figma</span>
+          </a>
+        </div>
+        <div class="line2_wt">
+          <a href="https://www.tinkercad.com/" class="shortcut">
+            <div class="icon-container"></div>
+            <span>Tinkercad</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
