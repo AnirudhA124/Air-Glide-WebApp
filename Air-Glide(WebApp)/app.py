@@ -9,6 +9,8 @@ import HANDDETECTION as hdt
 from flask_mysqldb import MySQL
 from passlib.hash import sha256_crypt
 import re
+import win32api
+import win32con
 
 app = Flask(__name__)
 app.config['MYSQL_HOST'] = "localhost"
@@ -132,7 +134,7 @@ def generate_frames_virtual_mouse():
 
         #tip of all the fingers
 
-        if len(lmlist) != 0:
+        if lmlist :
             x0,y0 = lmlist[4][1:]
             x1, y1 = lmlist[8][1:]
             x2, y2 = lmlist[12][1:]
@@ -192,6 +194,30 @@ def generate_frames_virtual_mouse():
                     cv2.circle(frame, (x3, y3), 15, (0, 255, 0), cv2.FILLED)
                     cv2.circle(frame, (x4, y4), 15, (0, 255, 0), cv2.FILLED)
                     pyautogui.hotkey("space")
+                    tym = 0
+            
+            #volume up down
+            if  fingers == [1,1,0,0,0]:
+
+
+                cv2.circle(frame,(x0,y0),15,(0,255,0),cv2.FILLED)
+                cv2.circle(frame,(x1,y1),15,(0,255,0),cv2.FILLED)
+                cv2.line(frame, (x0, y0), (x1, y1), (0, 255, 0), 3)
+
+
+                len,frame = detector.distance(4,8,frame)
+                len1, frame = detector.distance(2, 6, frame)
+                tym+=1
+                ratio = len/len1
+                if ratio<1.05 and tym > 4:
+                    cv2.line(frame, (x0, y0), (x1, y1), (0, 0, 255), 5)
+                    win32api.keybd_event(win32con.VK_VOLUME_DOWN, 0)
+                    win32api.keybd_event(win32con.VK_VOLUME_DOWN, 0, win32con.KEYEVENTF_KEYUP)
+                    tym = 0
+                elif ratio>1.45 and tym >4:
+                    cv2.line(frame, (x0, y0), (x1, y1), (0, 0,255), 5)
+                    win32api.keybd_event(win32con.VK_VOLUME_UP, 0)
+                    win32api.keybd_event(win32con.VK_VOLUME_UP, 0, win32con.KEYEVENTF_KEYUP)
                     tym = 0
                     
         #frame rate

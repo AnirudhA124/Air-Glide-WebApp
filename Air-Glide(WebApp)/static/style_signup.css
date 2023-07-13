@@ -1,7 +1,8 @@
 body{
     display: flex;
     justify-content: center;
-    background: linear-gradient(90deg, #152331 0%, #000 100%);
+    background-image: url(/static/main_bg.webp);
+    background-size: cover;
 }
 div.signup-form{
     height: 100%;

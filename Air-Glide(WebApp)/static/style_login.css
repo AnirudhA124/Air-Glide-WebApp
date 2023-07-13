@@ -2,7 +2,9 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(90deg, #152331 0%, #000 100%);
+    background-image: url(/static/main_bg.webp);
+    background-size: cover;
+
 }
 .info{
     padding: 0.9em;
