@@ -11,6 +11,8 @@ from passlib.hash import sha256_crypt
 import re
 import win32api
 import win32con
+import speech_recognition as sr
+from playsound import playsound
 
 app = Flask(__name__)
 app.config['MYSQL_HOST'] = "localhost"
@@ -28,7 +30,34 @@ app.secret_key='dont tell'
 def camera():
     success,frame=cap.read()
     return frame
-        
+
+def speech_recognition():
+ 
+    r = sr.Recognizer()
+ 
+    with sr.Microphone() as source:
+        r.adjust_for_ambient_noise(source)
+ 
+        playsound(r"static\\Say.mp3")
+ 
+        audio = r.listen(source)
+ 
+        print("Recognizing Now .... ")
+ 
+ 
+        # recognize speech using google
+ 
+        try:
+            print("You have said \n" + r.recognize_google(audio))
+
+            print("Audio Recorded Successfully \n ")
+ 
+ 
+        except Exception as e:
+            print("Error :  " + str(e))
+    return r.recognize_google(audio)
+
+  
 def generate_frames():
     while True:
         frame=camera()
@@ -113,6 +142,7 @@ def generate_frame_login():
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 def generate_frames_virtual_mouse():
+    pyautogui.FAILSAFE=False
     hweb = 480
     wweb = 640
     cap.set(3,wweb)
@@ -184,6 +214,16 @@ def generate_frames_virtual_mouse():
                     cv2.circle(frame, (x0, y0), 15, (0, 255, 0), cv2.FILLED)
                     pyautogui.scroll(-75)
             
+            #to enable voice recognition
+            if fingers == [0,0,0,0,1]:
+                tym+=1
+                if tym>30:
+                    cv2.circle(frame, (x4, y4), 15, (0, 255,0),cv2.FILLED)
+                    text=speech_recognition()
+                    pyautogui.typewrite(text)
+                    pyautogui.hotkey('enter')
+                    tym=0
+            
             #pause/play
             if fingers == [1,1,1,1,1]:
                 tym+=1
@@ -195,6 +235,16 @@ def generate_frames_virtual_mouse():
                     cv2.circle(frame, (x4, y4), 15, (0, 255, 0), cv2.FILLED)
                     pyautogui.hotkey("space")
                     tym = 0
+            
+            #Mute
+            if fingers == [0,1,0,0,1]:
+                tym+=1
+                if tym>30:
+                    cv2.circle(frame, (x1, y1), 15, (0, 255, 0), cv2.FILLED)
+                    cv2.circle(frame, (x4, y4), 15, (0, 255,0),cv2.FILLED)
+                    pyautogui.hotkey("M")
+                    tym=0
+            
             
             #volume up down
             if  fingers == [1,1,0,0,0]:
