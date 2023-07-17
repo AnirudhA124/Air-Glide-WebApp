@@ -40,22 +40,46 @@
             </div>
 
             </div>
-            <div class="second-container">
+            <div class="second-container" id="aboutus">
                 <h2 class="sec">ABOUT US</h2>
                 <p>With Air Glide, you can effortlessly control your digital life with effortless gestures.With our intuitive gesture recognition technology, you can navigate and interact with various applications in a seamless and captivating way. Experience the magic of hands-free control as you glide through menus, scroll through content, and command your digital world with grace. Elevate your digital experience with Air Glide.</p>
 
             </div>
-            <div class="third-container">
+            <div class="third-container" id="contact">
                 <h2 class="third">CONTACT US</h2>
                 <div class="icon">
-                    <a href="#" class="fa fa-facebook"></a>
-                    <a href="#" class="fa fa-twitter"></a>
-                    <a href="#" class="fa fa-instagram"></a>
+                    <a href="https://www.instagram.com/rnc_manipal/" class="shortcut" target='main'>
+                        <div class="icon-container"></div>
+                    </a>
+                    <a href="https://roboticsandcircuits.com/" class="shortcut" target='main'>
+                        <div class="icon-container"></div>
+                    </a>
+                    <a href="https://www.linkedin.com/company/robotics-and-circuits/mycompany/" class="shortcut" target='main'>
+                        <div class="icon-container"></div>
+                    </a>
                 </div>
             </div>
             <div class="camera">
                 <img src="{{ url_for('video_virtual_mouse') }}"/>
             </div>
         </div>
+        <script>
+            window.addEventListener("load", function() {
+              var shortcuts = document.getElementsByClassName("shortcut");
+              for (var i = 0; i < shortcuts.length; i++) {
+                var shortcut = shortcuts[i];
+                var url = shortcut.getAttribute("href");
+        
+               
+                var img = document.createElement("img");
+                img.src = "https://www.google.com/s2/favicons?sz=64&domain=" + url;
+                img.alt = "Icon";
+        
+               
+                var iconContainer = shortcut.getElementsByClassName("icon-container")[0];
+                iconContainer.style.backgroundImage = "url('" + img.src + "')";
+              }
+            });
+          </script>
     </body>
 </html>

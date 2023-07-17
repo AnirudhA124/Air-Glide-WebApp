@@ -1,3 +1,6 @@
+html {
+    scroll-behavior: smooth;
+  }
 body{
     margin: 0%;
     background-color: #f2f2f2;
@@ -109,6 +112,7 @@ p{
 }
 .icon{
     padding-bottom: 1%;
+    display: flex;
     
 }
 
@@ -160,3 +164,17 @@ img{
     width: 100%;
     border-radius: 5px;
 }
+.icon-container {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: linear-gradient(90deg, #ECE9E6 0%, #FFF 100%);;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: contain;
+    background-position: center;
+  }
+  a{
+    margin-left: 0.5em;
+  }

@@ -8,7 +8,7 @@ import pyautogui
 import HANDDETECTION as hdt
 from flask_mysqldb import MySQL
 from passlib.hash import sha256_crypt
-import re
+#import re
 import win32api
 import win32con
 import speech_recognition as sr
@@ -51,11 +51,11 @@ def speech_recognition():
             print("You have said \n" + r.recognize_google(audio))
 
             print("Audio Recorded Successfully \n ")
- 
+            return r.recognize_google(audio)
  
         except Exception as e:
             print("Error :  " + str(e))
-    return r.recognize_google(audio)
+            playsound(r"static\\Say2.mp3")
 
   
 def generate_frames():
@@ -220,8 +220,9 @@ def generate_frames_virtual_mouse():
                 if tym>30:
                     cv2.circle(frame, (x4, y4), 15, (0, 255,0),cv2.FILLED)
                     text=speech_recognition()
-                    pyautogui.typewrite(text)
-                    pyautogui.hotkey('enter')
+                    if text:
+                        pyautogui.typewrite(text)
+                        pyautogui.hotkey('enter')
                     tym=0
             
             #pause/play
@@ -390,4 +391,4 @@ def capture():
     
     
 if __name__=="__main__":
-    app.run(debug=True)
+    app.run()
