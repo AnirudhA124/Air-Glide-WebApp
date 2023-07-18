@@ -87,44 +87,43 @@ while True:
 
         fingers = detector.fingersup()
         fing = detector.scroll_fingers()
-        
 
 
         cv2.rectangle(img,(pixels,pixels),(wweb - pixels, hweb - pixels),(255,255,0),2)
 
 
         #only index finger moving mode:
-        if fingers == [0,1,0,0,0]:
-            xc = np.interp(x1,(pixels,wweb - pixels),(0,wscr))
-            yc = np.interp(y1, (pixels, hweb - pixels), (0, hscr))
+        if fingers == [0,1,1,0,0]:
+            lenght, img  = detector.distance(8,12,img)
+            lenght2,img = detector.distance(5,9,img)
+            ratio = lenght/lenght2
+            if ratio < 1.5:
+                xc = np.interp(x1,(pixels,wweb - pixels),(0,wscr))
+                yc = np.interp(y1, (pixels, hweb - pixels), (0, hscr))
 
-            clocx = plocx + (xc - plocx)/smooth
-            clocy = plocy + (yc - plocy)/smooth
+                clocx = plocx + (xc - plocx)/smooth
+                clocy = plocy + (yc - plocy)/smooth
 
 
-            pyautogui.moveTo(clocx,clocy)
-            cv2.circle(img,(x1,y1),15,(140,140,0),cv2.FILLED)
+                pyautogui.moveTo(clocx,clocy)
+                cv2.circle(img,(x1,y1),15,(140,140,0),cv2.FILLED)
 
-            plocx = clocx
-            plocy = clocy
+                plocx = clocx
+                plocy = clocy
 
         #for clicking: middle and index fing
         if fingers == [0,1,1,0,0]:
-
+        
             lenght, img  = detector.distance(8,12,img)
             lenght2,img = detector.distance(5,9,img)
-
-
             ratio = lenght/lenght2    #ratio to keep the depth of the hand in mind
-            print(ratio)
-            if ratio < 1.2:
+            #print(ratio)
+            if ratio > 1.7:
                 tym+=1
                 if tym>25:
                     cv2.circle(img,(x1,y1),15,(0,255,0),cv2.FILLED)
                     pyautogui.click()
                     tym = 0
-
-
 
         #to enable voice recognition
         if fingers == [0,0,0,0,1]:
@@ -165,6 +164,24 @@ while True:
                 cv2.circle(img, (x1, y1), 15, (0, 255, 0), cv2.FILLED)
                 cv2.circle(img, (x4, y4), 15, (0, 255,0),cv2.FILLED)
                 pyautogui.hotkey("M")
+                tym=0
+        
+        #click and hold     
+        if fingers == [0,1,1,1,0]:
+            cv2.circle(img, (x1, y1), 15, (0, 255, 0), cv2.FILLED)
+            cv2.circle(img, (x3, y3), 15, (0, 255, 0), cv2.FILLED)
+            len1,img = detector.distance(8,16,img)
+            len2,img = detector.distance(5,13,img)
+            tym+=1
+            ratio = len1/len2
+            # print(ratio)
+            if ratio<1.25 and tym>25:
+                cv2.circle(img, (x2, y2), 15, (0, 255, 0), cv2.FILLED)
+                pyautogui.mouseDown(button='left')
+                tym = 0
+            elif ratio>1.8 and tym>25:
+                cv2.circle(img, (x2, y2), 15, (255, 0, 0), cv2.FILLED)
+                pyautogui.mouseUp()
                 tym=0
         
         #volume up down

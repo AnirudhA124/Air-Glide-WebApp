@@ -179,28 +179,34 @@ def generate_frames_virtual_mouse():
 
 
             #only index finger moving mode:
-            if fingers == [0,1,0,0,0]:
-                xc = np.interp(x1,(pixels,wweb - pixels),(0,wscr))
-                yc = np.interp(y1, (pixels, hweb - pixels), (0, hscr))
-                
-                clocx = plocx + (xc - plocx)/smooth
-                clocy = plocy + (yc - plocy)/smooth
-                
-                pyautogui.moveTo(clocx,clocy)
-                cv2.circle(frame,(x1,y1),15,(140,140,0),cv2.FILLED)
-                
-                plocx = clocx
-                plocy = clocy
-
-            #for clicking: middle and index fing
             if fingers == [0,1,1,0,0]:
-
                 lenght, frame  = detector.distance(8,12,frame)
                 lenght2,frame = detector.distance(5,9,frame)
                 ratio = lenght/lenght2
-                if ratio<1.2:
+                if ratio < 1.5:
+                    xc = np.interp(x1,(pixels,wweb - pixels),(0,wscr))
+                    yc = np.interp(y1, (pixels, hweb - pixels), (0, hscr))
+
+                    clocx = plocx + (xc - plocx)/smooth
+                    clocy = plocy + (yc - plocy)/smooth
+
+
+                    pyautogui.moveTo(clocx,clocy)
+                    cv2.circle(frame,(x1,y1),15,(140,140,0),cv2.FILLED)
+
+                    plocx = clocx
+                    plocy = clocy
+
+            #for clicking: middle and index fing
+            if fingers == [0,1,1,0,0]:
+            
+                lenght, frame  = detector.distance(8,12,frame)
+                lenght2,frame = detector.distance(5,9,frame)
+                ratio = lenght/lenght2    #ratio to keep the depth of the hand in mind
+                #print(ratio)
+                if ratio > 1.7:
                     tym+=1
-                    if tym>30:
+                    if tym>25:
                         cv2.circle(frame,(x1,y1),15,(0,255,0),cv2.FILLED)
                         pyautogui.click()
                         tym = 0
@@ -244,6 +250,24 @@ def generate_frames_virtual_mouse():
                     cv2.circle(frame, (x1, y1), 15, (0, 255, 0), cv2.FILLED)
                     cv2.circle(frame, (x4, y4), 15, (0, 255,0),cv2.FILLED)
                     pyautogui.hotkey("M")
+                    tym=0
+                    
+            #click and hold     
+            if fingers == [0,1,1,1,0]:
+                cv2.circle(frame, (x1, y1), 15, (0, 255, 0), cv2.FILLED)
+                cv2.circle(frame, (x3, y3), 15, (0, 255, 0), cv2.FILLED)
+                len1,frame = detector.distance(8,16,frame)
+                len2,frame = detector.distance(5,13,frame)
+                tym+=1
+                ratio = len1/len2
+                # print(ratio)
+                if ratio<1.25 and tym>25:
+                    cv2.circle(frame, (x2, y2), 15, (0, 255, 0), cv2.FILLED)
+                    pyautogui.mouseDown(button='left')
+                    tym = 0
+                elif ratio>1.8 and tym>25:
+                    cv2.circle(frame, (x2, y2), 15, (255, 0, 0), cv2.FILLED)
+                    pyautogui.mouseUp()
                     tym=0
             
             
