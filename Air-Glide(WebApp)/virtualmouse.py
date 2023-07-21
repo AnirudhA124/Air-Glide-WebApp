@@ -17,7 +17,7 @@ from playsound import playsound
 pyautogui.FAILSAFE = False
 hweb = 480
 wweb = 640
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1,cv2.CAP_DSHOW)
 cap.set(3,wweb)
 cap.set(4,hweb)
 pTime = 0

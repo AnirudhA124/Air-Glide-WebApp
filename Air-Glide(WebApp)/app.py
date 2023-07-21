@@ -24,7 +24,7 @@ mysql= MySQL(app)
 
 # global id_db
 
-cap=cv2.VideoCapture(0)
+cap=cv2.VideoCapture(1,cv2.CAP_DSHOW)
 app.secret_key='dont tell'
  
 def camera():
@@ -38,7 +38,7 @@ def speech_recognition():
     with sr.Microphone() as source:
         r.adjust_for_ambient_noise(source)
  
-        playsound(r"static\\Say.mp3")
+        playsound("static/Say.mp3")
  
         audio = r.listen(source)
  
@@ -55,7 +55,7 @@ def speech_recognition():
  
         except Exception as e:
             print("Error :  " + str(e))
-            playsound(r"static\\Say2.mp3")
+            playsound("static\Say2.mp3")
 
   
 def generate_frames():
