@@ -24,7 +24,7 @@ mysql= MySQL(app)
 
 # global id_db
 
-cap=cv2.VideoCapture(1,cv2.CAP_DSHOW)
+cap=cv2.VideoCapture(0)
 app.secret_key='dont tell'
  
 def camera():

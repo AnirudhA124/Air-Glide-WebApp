@@ -37,11 +37,11 @@ while True:
     ret, frame=cap.read()
     #imgS=cv2.resize(img,(0,0),None,0.25,0.25)
     imgS=cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
-#Finding Locations of frame and encoding each frame
+    #Finding Locations of frame and encoding each frame
     faceCurFrame= face_recognition.face_locations(imgS)
     encodeCurFrame=face_recognition.face_encodings(imgS,faceCurFrame)
 
-#Matching the encodings and getting min distance to get best match
+    #Matching the encodings and getting min distance to get best match
     for encodeFace,faceLoc in zip(encodeCurFrame,faceCurFrame):
         matches=face_recognition.compare_faces(encodeListKnown,encodeFace)
         faceDis=face_recognition.face_distance(encodeListKnown,encodeFace)

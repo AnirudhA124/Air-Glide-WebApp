@@ -5,7 +5,7 @@ import math
 
 
 class HandDetector():
-    def __init__(self, mode=False, maxHands=1, modelComplexity=1, detectionCon=0.5, trackCon=0.5):
+    def __init__(self, mode=False, maxHands=1, modelComplexity=1, detectionCon=0.8, trackCon=0.8):
         self.mode = mode
         self.maxHands = maxHands
         self.modelComplex = modelComplexity
@@ -77,7 +77,17 @@ class HandDetector():
             pass
 
         return fingers
+    def scroll_fingers(self):
+        fing = []
+        try:
+            if self.lmList[self.tipIds[0]][1] < self.lmList[self.tipIds[0] - 1][1]:
+                fing.append(1)
+            else:
+                fing.append(0)
+        except:
+            pass
 
+        return fing
     def distance(self,l1,l2,img,draw = True):
         x1, y1 = self.lmList[l1][1:]
         x2, y2 = self.lmList[l2][1:]
@@ -90,10 +100,12 @@ class HandDetector():
 
 
 
+
+
 def main():
     pTime = 0
     cTime = 0
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1,cv2.CAP_DSHOW)
     cap.set(3, 1463)
     cap.set(4, 823)
     detector = HandDetector()
